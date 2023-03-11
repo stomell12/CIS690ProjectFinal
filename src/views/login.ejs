@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<%- include('./partials/header'); %>
+  
+  <body>
+
+
+	<div class="login-container">
+		<h1>Login</h1>
+		<form>
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" placeholder="Enter your username" required>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" placeholder="Enter your password" required>
+			<a href ="/dashboard" class="btn" name="input" input type="submit"> Login </a>
+		</form>
+	</div>
+
+    <%- include('./partials/scripts'); %>
+
+  </body>
+</html>

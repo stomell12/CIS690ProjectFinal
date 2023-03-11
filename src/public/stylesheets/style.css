@@ -1,0 +1,71 @@
+body {
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00b7ff;
+}
+/* Reset default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style the container */
+.login-container {
+  margin: 50px auto;
+  max-width: 400px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the heading */
+.login-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* Style the form */
+.login-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the labels */
+.login-container label {
+  margin-bottom: 10px;
+  color: #666;
+}
+
+/* Style the inputs */
+.login-container input[type='text'],
+.login-container input[type='password'] {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  color: #333;
+}
+
+/* Style the submit button */
+.login-container .btn[type='submit'] {
+  background-color: #ffcc33;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style the submit button on hover */
+.login-container .btn[type='submit']:hover {
+  background-color: #ffc107;
+}
