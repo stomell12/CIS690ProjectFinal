@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<%- include('../partials/header'); %>
+  
+  <body>
+    <%- include('../partials/navbar'); %>
+      <div class="container">
+          <h1>
+            Create a new patient
+          </h1>
+        <div class="row">
+          <div class="col-4">
+            <form method="post" action="/patient/create">
+              <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter First Name" required maxLength="15">
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter Last Name" required maxLength="15">
+              </div>
+              <div class="form-group">
+                <label for="dateOfBirth">Date of Birth:</label>
+                <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" required>
+              </div>
+              <div class="form-group">
+                <label for="zipcode">Zipcode:</label>
+                <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Enter Zipcode" required maxLength="5">
+              </div>
+              <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" class="form-control" name="state" id="state" placeholder="Enter State" required maxLength="20">
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Enter Phone Number" required maxLength="10">
+              </div>
+              <div class="form-group">
+                <label for="insuranceType">Insurance Type:</label>
+                <select class="form-control" name="insuranceType" id="insuranceType" required>
+                  <option value="Medicare">Medicare</option>
+                  <option value="Medicaid">Medicaid</option>
+                  <option value="Private">Private</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="testType">Test Type:</label>
+                <select class="form-control" name="testType" id="testType" required>
+                  <option value="Cardio">Cardio</option>
+                  <option value="PGX">PGX</option>
+                  <option value="CGX">CGX</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="doctorService">Doctor Service:</label>
+                <input type="text" class="form-control" name="doctorService" id="doctorService" placeholder="Enter Doctor Service" required maxLength="15">
+              </div>
+              <div class="form-group">
+                <label for="labName">Lab Name:</label>
+                <input type="text" class="form-control" name="labName" id="labName" placeholder="Enter Lab Name" required maxLength="15">
+              </div>
+              <input type="hidden" name="sampleStatus" value="-">
+              <!-- <div class="form-group">
+                <label for="sampleStatus">Sample Status</label>
+                <select class="form-control" name="sampleStatus" id="sampleStatus">       
+                    <option value="Sample Collected">Sample Collected</option>
+                    <option value="QC Reject">QC (Quality-Control) Reject</option>
+                    <option value="Lab Rejected">Lab Rejected</option>
+                    <option value="Reject Notice Sent">Reject Notice Sent</option>
+                    <option value="Ready to Ship">Ready to Ship</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Ready for Doctor">Ready for Doctor</option>
+                    <option value="Doctor Review">Doctor Review</option>
+                    <option value="Signed by Doctor">Signed by Doctor</option>
+                    <option value="Results Available">Results Available</option>
+                </select>
+              </div> -->
+              <br></br>
+              <button type="submit" class="btn btn-main">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

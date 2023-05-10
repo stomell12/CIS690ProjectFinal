@@ -1,27 +1,47 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-5">
+<nav class="navbar navbar-dark bg-light-red navbar-expand-lg mb-5">
     <div class="container">
-        <a class="navbar-brand" href="/">
-            My Application
+        <a class="navbar-brand" href="/dashboard/list">
+            Interactive Lab Management Platform
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+        <ul class="navbar-nav">
+            <% if (loggedInUser && (loggedInUser.role === 'Admin' || loggedInUser.role === 'Data Entry Specialist' || loggedInUser.role === 'Quality Control')) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                    <a class="nav-link nav-link-custom bold-text" href="/dashboard/list">Patient Dashboard</a>
+                </li>
+            <% } %>
+            <% if (loggedInUser && loggedInUser.role === 'Admin') { %>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom bold-text" href="/dashboard/userList">User Dashboard</a>
+                </li>
+            <% } %>
+            <% if (loggedInUser) { %>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom bold-text" href="/account/myAccount">My Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard/detail">Patient Details</a>
+                    <a class="nav-link nav-link-custom bold-text" href="/account/logout">Logout</a>
                 </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="/">Login</a>
-                </li>
-                <li class = "nav-item">
-                    <a class ="nav-link" href="/account">My Account</a> 
-
-            </ul>
-        </div>
+            <% } %>
+        </ul>
     </div>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const links = document.querySelectorAll(".nav-link-custom");
+        const currentUrl = window.location.href;
+
+        links.forEach(link => {
+            if (link.href === currentUrl) {
+                link.classList.add("active-link");
+            } else {
+                link.classList.remove("active-link");
+            }
+        });
+    });
+</script>
 </nav>

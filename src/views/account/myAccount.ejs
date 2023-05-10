@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <%- include('../partials/header'); %>
+
+  <body>
+
+    <%- include('../partials/navbar'); %>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <form method="post" action="/account/update?id=<%= user._id %>">
+            <input type="hidden" name="_id" value="<%= user._id %>">
+            <div class="form-group">
+              <label for="firstName">First Name:</label>
+              <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter First Name" value="<%= loggedInUser.firstName %>" required maxLength="20">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name:</label>
+              <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter Last Name" value="<%= loggedInUser.lastName %>" required maxLength="20">
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" value="<%= loggedInUser.email %>" required maxlength="25">
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" class="form-control" name="password" id="password" placeholder="Change Password" required>
+            </div>
+            <br></br>
+            <button type="submit" class="btn btn-main">Update Information</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<%- include('../partials/header'); %>
+<body>
+  <%- include('../partials/navbar'); %>
+  <div class="container">
+    <h3>
+      Timeline for <%= patient.FirstName %> <%= patient.LastName %>
+    </h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="timeline">
+          <% const checkpoints = [
+            "Sample Collected",
+            "QC (Quality-Control) Reject",
+            "Lab Rejected",
+            "Reject Notice Sent",
+            "Ready to Ship",
+            "Shipped",
+            "Ready for Doctor",
+            "Doctor Review",
+            "Signed by Doctor",
+            "Results Available"
+          ];
+          %>
+          <% for (const checkpoint of checkpoints) { %>
+            <% const event = patient.timeline.find(e => e.checkpoint === checkpoint); %>
+            <div class="timeline-item <%= event ? 'completed' : '' %>">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <%= checkpoint %>
+                  <br>
+                  <%= event ? event.date.toLocaleDateString() : 'Not completed' %>
+                </div>
+                <% if (loggedInUser && (loggedInUser.role === 'Admin' || loggedInUser.role === 'Data Entry Specialist')) { %>
+                  <% if (event) { %>
+                    <form action="/patient/deleteCheckpoint" method="post">
+                      <input type="hidden" name="patientId" value="<%= patientId %>">
+                      <input type="hidden" name="checkpointId" value="<%= event._id %>">
+                      <button type="submit" class="btn btn-delete" title="Delete checkpoint entry">-</button>
+                    </form>
+                  <% } %>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+        </div>
+          <% if (loggedInUser && (loggedInUser.role === 'Admin' || loggedInUser.role === 'Data Entry Specialist')) { %>
+            <form action="/patient/addCheckpoint" method="post">
+              <input type="hidden" name="patientId" value="<%= patientId %>">
+              <div class="form-group">
+                <label for="checkpoint">Checkpoint</label>
+                <select name="checkpoint" id="checkpoint" class="form-control">
+                  <option value="Sample Collected">Sample Collected</option>
+                  <option value="QC Reject">QC (Quality-Control) Reject</option>
+                  <option value="Lab Rejected">Lab Rejected</option>
+                  <% if (patient.timeline.find(e => e.checkpoint === 'Lab Rejected')) { %>
+                    <option value="Reject Notice Sent" disabled>Reject Notice Sent</option>
+                    <option value="Ready to Ship" disabled>Ready to Ship</option>
+                    <option value="Shipped" disabled>Shipped</option>
+                    <option value="Ready for Doctor" disabled>Ready for Doctor</option>
+                    <option value="Doctor Review" disabled>Doctor Review</option>
+                    <option value="Signed by Doctor" disabled>Signed by Doctor</option>
+                    <option value="Results Available" disabled>Results Available</option>
+                  <% } else { %>
+                    <option value="Reject Notice Sent">Reject Notice Sent</option>
+                    <option value="Ready to Ship">Ready to Ship</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Ready for Doctor">Ready for Doctor</option>
+                    <option value="Doctor Review">Doctor Review</option>
+                    <option value="Signed by Doctor">Signed by Doctor</option>
+                    <option value="Results Available">Results Available</option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" name="date" id="date" class="form-control" required>
+              </div>
+              <br></br>
+              <button type="submit" class="btn btn-main">Add Checkpoint</button>
+            </form>
+          <% } %>
+
+        </div>
+      <div class="col-md-6">
+        <h3>Comments</h3>
+        <div id="comments"></div>
+        <form method="post" action="/patient/comment">
+          <input type="hidden" name="patientId" value="<%= patient._id %>">
+            <% if (loggedInUser && (loggedInUser.role === 'Admin' || loggedInUser.role === 'Quality Control')) { %>
+          <div class="form-group">
+            <label for="commentContent">Add Comment:</label>
+            <textarea class="form-control" name="commentContent" id="commentContent" rows="3" required></textarea>
+          </div>
+          <br></br>
+          <button type="submit" class="btn btn-main">Add Comment</button>
+                <% } %>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    async function fetchComments() {
+      const response = await fetch('/patient/comments/<%= patient._id %>');
+      const comments = await response.json();
+
+      const sortedComments = comments.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      
+      const commentsContainer = document.getElementById('comments');
+      sortedComments.forEach((comment) => {
+        const commentElement = document.createElement('div');
+        commentElement.innerHTML = `
+          <p>${comment.content}</p>
+          <small>${new Date(comment.timestamp).toLocaleString()}</small>
+          <hr>
+        `;
+        commentsContainer.appendChild(commentElement);
+      });
+    }
+
+    fetchComments();
+  </script>
+  <%- include('../partials/scripts'); %>
+</body>
+</html>
+

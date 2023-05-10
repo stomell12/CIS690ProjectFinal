@@ -5,12 +5,78 @@
   <body>
     <%- include('../partials/navbar'); %>
 
-    <div class="container">
-      <h1>This is list</h1>
+      <div class="container">
+      <% if (loggedInUser && (loggedInUser.role === 'Admin' || loggedInUser.role === 'Data Entry Specialist')) { %>
+        <a href="../patient/create" class="btn btn-main">Create New Patient</a>
+      <% } %>
+  
+      <br></br>
+        <table class="table table-bordered" id="patientTable">
+          <thead>
+            <tr>
+              <td>First Name</td>
+              <td>Last Name</td>
+              <td>Birthdate</td>
+              <td>Zipcode</td>
+              <td>State</td>
+              <td>Phone Number</td>
+              <td>Insurance Type</td>
+              <td>Test Type</td>
+              <td>Doctor Service</td>
+              <td>Lab Name</td>
+              <td>Sample Status</td>
+              <td>Actions</td>
+            </tr>
+          </thead>
+<!--           So date isn't returned with a bunch of unnecessary timestamp crap  -->
+          <% function formatDate(date) {
+            const d = new Date(date);
+            const month = d.getMonth() + 1;
+            const day = d.getDate();
+            const year = d.getFullYear();
+            return month + '/' + day + '/' + year;
+          } %>
+          <% for (var i=0; i<patient.length; i++)  {%>
+            <tr>
+              <td><%=patient[i].FirstName%></td>
+              <td><%=patient[i].LastName%></td>
+              <td><%=formatDate(patient[i].Birthdate)%></td>
+              <td><%=patient[i].Zipcode%></td>
+              <td><%=patient[i].State%></td>
+              <td><%=patient[i].PhoneNumber%></td>
+              <td><%=patient[i].InsuranceType%></td>
+              <td><%=patient[i].TestType%></td>
+              <td><%=patient[i].DoctorService%></td>
+              <td><%=patient[i].LabName%></td>
+              <td><%= (patient[i].timeline && patient[i].timeline.length > 0) ? patient[i].timeline[patient[i].timeline.length - 1].checkpoint : 'Not completed' %>
+</td>
+              <td>
+                  <a href="/patient/timeline?id=<%=patient[i]._id%>" class="btn btn-primary " >Timeline</a>
+                <% if (loggedInUser && (loggedInUser.role === 'Admin' || loggedInUser.role === 'Data Entry Specialist')) { %>
+                  <a href="/patient/update?id=<%=patient[i]._id%>" class="btn btn-primary">Update</a>
+                  <a href="/patient/delete?id=<%=patient[i]._id%>" class="btn btn-secondary" >Delete</a>
+                <% } %>
+              </td> 
+            </tr>
+          <% } %>     
+        </table>
+            <br></br>
+        <a href="/patient/exportExcel" class="btn btn-success">Export to Excel</a>
     </div>
 
+        <%- include('../partials/scripts'); %>
 
-    <%- include('../partials/scripts'); %>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#patientTable").DataTable({
+            //autowidth false to fix weird whitespace when table is full-size
+            autoWidth: false,
+            // DOM allows search & dropdown to appear in the same row because it wasnt working for some reason
+              dom: "<'row'<'col-sm-6'l><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>",
+            scrollX: true
+          });
+        });
 
+      </script>
   </body>
 </html>

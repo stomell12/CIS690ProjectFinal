@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<%- include('../partials/header', {title: 'Sign Up'}); %>
+<!-- Change to be portal for Admin to create accounts Rather than User Signup page Eventually?-->
+<body>
+    <div class="container">
+            <h1><span class="fa fa-sign-in"></span>Create an account</h1>
+            <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+            <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+            <div class="login-container">
+              <form action="/account/signup" method="post">
+                  <div class="form-group">
+                      <label>Email</label>
+                      <input required type="text" class="form-control" name="email">
+                  </div>
+                  <div class="form-group">
+                      <label>First Name</label>
+                      <input required type="text" class="form-control" name="firstName">
+                  </div>
+                  <div class="form-group">
+                      <label>Last Name</label>
+                      <input required type="text" class="form-control" name="lastName">
+                  </div>
+                  <div class="form-group">
+                      <label>Password</label>
+                      <input required type="password" class="form-control" name="password">
+                  </div>
+                  <div class="form-group">
+                    <label>Role:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role" value="Data Entry Specialist">
+                            <label class="form-check-label" for="Data Entry Specialist">Data Entry Specialist</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role" value="Quality Control">
+                            <label class="form-check-label" for="Quality Control">Quality Control</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role" value="Admin">
+                            <label class="form-check-label" for="Admin">Admin</label>
+                        </div>
+                    </div>
+                  <button type="submit" class="btn btn-warning btn-lg">Signup</button>
+              </form>
+              <hr>
+              <p>Already have an account? <a href="/">Login</a></p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<%- include('../partials/header'); %>
+
+  <body>
+    
+    <%- include('../partials/navbar'); %>
+
+<!--     Formats date correctly to ISO standard so date selector auto populates -->
+    <% function formatDate(date) {
+      const d = new Date(date);
+      const month = ("0" + (d.getMonth() + 1)).slice(-2);
+      const day = ("0" + d.getDate()).slice(-2);
+      const year = d.getFullYear();
+      return year + '-' + month + '-' + day;
+    } %>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+              <form method="post" action="/patient/update?id=<%= patient._id %>">
+              <input type="hidden" name="_id" value="<%= patient._id %>">
+              <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" class="form-control" name="FirstName" id="firstName" placeholder="Enter First Name" value="<%= patient.FirstName %>" required maxLength="20">
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" class="form-control" name="LastName" id="lastName" placeholder="Enter Last Name" value="<%= patient.LastName %>" required maxLength="20">
+              </div>
+              <div class="form-group">
+                <label for="dateOfBirth">Date of Birth:</label>
+                <input type="date" class="form-control" name="Birthdate" id="dateOfBirth" value="<%= formatDate(patient.Birthdate) %>" required>
+              </div>
+              <div class="form-group">
+                <label for="zipcode">Zipcode:</label>
+                <input type="text" class="form-control" name="Zipcode" id="zipcode" placeholder="Enter Zipcode" value="<%= patient.Zipcode %>" required maxLength="5">
+              </div>
+              <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" class="form-control" name="State" id="state" placeholder="Enter State" value="<%= patient.State %>" required maxLength="20">
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" class="form-control" name="PhoneNumber" id="phoneNumber" placeholder="Enter Phone Number" value="<%= patient.PhoneNumber %>" required maxLength="10">
+              </div>
+              <div class="form-group">
+                <label for="insuranceType">Insurance Type:</label>
+                <select class="form-control" name="InsuranceType" id="insuranceType" required>
+                  <option value="Medicare" <%= patient.InsuranceType === 'Medicare' ? 'selected' : '' %>>Medicare</option>
+                  <option value="Medicaid" <%= patient.InsuranceType === 'Medicaid' ? 'selected' : '' %>>Medicaid</option>
+                  <option value="Private" <%= patient.InsuranceType === 'Private' ? 'selected' : '' %>>Private</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="testType">Test Type:</label>
+                <select class="form-control" name="TestType" id="testType" required>
+                  <option value="Cardio" <%= patient.TestType === 'Cardio' ? 'selected' : '' %>>Cardio</option>
+                  <option value="PGX" <%= patient.TestType === 'PGX' ? 'selected' : '' %>>PGX</option>
+                  <option value="CGX" <%= patient.TestType === 'CGX' ? 'selected' : '' %>>CGX</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="doctorService">Doctor Service:</label>
+                <input type="text" class="form-control" name="DoctorService" id="doctorService" placeholder="Enter Doctor Service" value="<%= patient.DoctorService %>" required maxLength="50">
+              </div>
+              <div class="form-group">
+                <label for="labName">Lab Name:</label>
+                <input type="text" class="form-control" name="LabName" id="labName" placeholder="Enter Lab Name" value="<%= patient.LabName %>" required maxLength="50">
+              </div>
+              <div class="form-group">
+                <!-- <label for="sampleStatus">Sample Status:</label>
+                <input type="text" class="form-control" name="SampleStatus" id="sampleStatus" placeholder="Enter Sample Status" value="<%= patient.SampleStatus %>" required maxLength="50"> -->
+                <input type="hidden" name="sampleStatus" value="<%= patient.SampleStatus %>">
+              </div>
+              <br></br>
+              <button type="submit" class="btn btn-main">Update Patient</button>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
+

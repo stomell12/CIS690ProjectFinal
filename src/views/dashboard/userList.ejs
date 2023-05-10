@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<%- include('../partials/header'); %>
+  
+  <body>
+    <%- include('../partials/navbar'); %>
+
+      <div class="container">
+        <a href="../account/createUser" class="btn btn-main">Create New User</a>
+      <br></br>
+        <table class="table table-bordered" id="userTable">
+          <thead>
+            <tr>
+              <td>Email</td>
+              <td>First Name</td>
+              <td>Last Name</td>
+              <td>Role</td>
+              <td>Actions</td>
+            </tr>
+          </thead>
+          <% for (var i=0; i<user.length; i++)  {%>
+            <tr>
+              <td><%=user[i].email%></td>
+              <td><%=user[i].firstName%></td>
+              <td><%=user[i].lastName%></td>
+              <td><%=user[i].role%></td>
+              <td>
+                <div class="btn-container">
+                  <a href="/account/update?id=<%=user[i]._id%>" class="btn btn-user1">Update</a>
+                  <a href="/account/delete?id=<%=user[i]._id%>" class="btn btn-user2">Delete</a>
+                </div>
+              </td>
+            </tr>
+          <% } %>     
+        </table>
+    </div>
+
+        <%- include('../partials/scripts'); %>
+
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#userTable").DataTable({
+            //autowidth false to fix weird whitespace when table is full-size
+            autoWidth: false,
+            // DOM allows search & dropdown to appear in the same row
+              dom: "<'row'<'col-sm-6'l><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>",
+            scrollX: true
+          });
+        });
+
+      </script>
+  </body>
+</html>

@@ -3,16 +3,14 @@
 <%- include('./partials/header'); %>
   
   <body>
-
-
 	<div class="login-container">
-		<h1>Login</h1>
-		<form>
-			<label for="username">Username:</label>
-			<input type="text" id="username" name="username" placeholder="Enter your username" required>
+		<h1>Log In</h1>
+		<form action="/account/login" method ="post">
+			<label for="Email">Email:</label>
+		    <input type="text" id="username" name="email" placeholder="Enter your email" required>
 			<label for="password">Password:</label>
-			<input type="password" id="password" name="password" placeholder="Enter your password" required>
-			<a href ="/dashboard" class="btn" name="input" input type="submit"> Login </a>
+		    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+			<button type = "submit" class="btn" name="input" input type="submit"> Login </button>
 		</form>
 	</div>
 
