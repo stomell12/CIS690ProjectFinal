@@ -52,7 +52,7 @@
                 <label for="checkpoint">Checkpoint</label>
                 <select name="checkpoint" id="checkpoint" class="form-control">
                   <option value="Sample Collected">Sample Collected</option>
-                  <option value="QC Reject">QC (Quality-Control) Reject</option>
+                  <option value="QC (Quality-Control) Reject">QC (Quality-Control) Reject</option>
                   <option value="Lab Rejected">Lab Rejected</option>
                   <% if (patient.timeline.find(e => e.checkpoint === 'Lab Rejected')) { %>
                     <option value="Reject Notice Sent" disabled>Reject Notice Sent</option>
